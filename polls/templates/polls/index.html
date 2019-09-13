@@ -1,0 +1,23 @@
+{% load static %}
+<!doctype html>
+<html>
+	<head>
+		<title> Welcome Poll Application </title>
+		<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+	</head>
+	<body>
+	<h1> Latest Polls </h1>
+	{% if latest_question_list %}
+		<ul>
+		{% for question in latest_question_list %}
+			<!-- <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li> -->
+			<li><a href="{% url 'detail' question.id %}">{{ question.question_text }}</a></li>
+		{% endfor %}
+		</ul>
+	{% else %}
+		<p>No polls are available.</p>
+	{% endif %}
+	<br><br>
+	<img src="{% static 'polls/images/back.jpg' %}" class="circle">
+	</body>
+</html>

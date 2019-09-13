@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+	<head>
+		<title> Welcome Poll Application </title>
+	</head>
+	<body>
+	<h1>Poll Question : {{ question.question_text }}</h1>
+	{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+	<form method="post" action="{% url 'vote' question.id %}">
+		{% csrf_token %}
+		{% for choice in question.choice_set.all %}
+			<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+			<label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+		{% endfor %}
+		<input type="submit" value="Vote">
+	</form>
+	
+	{% comment %}
+	<ul>
+	{% for choice in question.choice_set.all %}
+		<li>{{ choice.choice_text }}</li>
+	{% endfor %}
+	</ul>
+	{% endcomment %}
+	</body>
+</html>
